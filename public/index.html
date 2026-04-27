@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CrisisAI — Disaster Response Platform</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="dashboard-layout">
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-logo">CRISIS<span>AI</span></div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-tooltip="Dashboard" onclick="switchSection('dashboard-section', this)">
+        <span class="nav-icon">📊</span><span class="nav-text">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-tooltip="Live Map" onclick="switchSection('live-map-section', this)">
+        <span class="nav-icon">🗺️</span><span class="nav-text">Live Map</span>
+      </a>
+      <a href="#" class="nav-item" data-tooltip="AI Analyzer" onclick="switchSection('ai-analyzer-section', this)">
+        <span class="nav-icon">🤖</span><span class="nav-text">AI Analyzer</span>
+      </a>
+      <a href="#" class="nav-item" data-tooltip="Safety Hub" onclick="switchSection('safety-hub-section', this)">
+        <span class="nav-icon">🛡️</span><span class="nav-text">Safety Hub</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="nav-badge"><span class="pulse-dot"></span> LIVE SYSTEM</div>
+      <div class="last-updated">Updated: <span id="timeNow">--:--</span></div>
+    </div>
+  </aside>
+
+  <!-- MOBILE HEADER -->
+  <header class="mobile-header">
+    <div class="sidebar-logo">CRISIS<span>AI</span></div>
+    <div class="mobile-controls">
+      <div class="nav-badge mobile-badge"><span class="pulse-dot"></span> LIVE</div>
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="dashboard-main">
+    
+
+
+    <!-- 1. DASHBOARD SECTION -->
+    <section id="dashboard-section" class="content-section active-section">
+      <div class="hero-dashboard">
+        <h1>WHEN <span class="highlight">CRISIS</span> STRIKES</h1>
+        <p class="hero-sub">
+          Real-time disaster alerts, AI-filtered information, and instant access to
+          <strong>shelters, hospitals & rescue teams</strong> — all in one platform.
+        </p>
+      </div>
+
+      <div class="section-title">GLOBAL OVERVIEW</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="statAlerts">0</div>
+          <div class="stat-label">Total Alerts Processed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="statFakeNews">0</div>
+          <div class="stat-label">Fake News Prevented</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="statIncidents">0</div>
+          <div class="stat-label">Active Incidents Monitored</div>
+        </div>
+      </div>
+      
+      <div class="quick-actions">
+        <button class="btn-primary" onclick="document.querySelector('.nav-item:nth-child(2)').click()">🚨 View Live Map</button>
+        <button class="btn-secondary" onclick="document.querySelector('.nav-item:nth-child(3)').click()">🔍 Analyze News</button>
+      </div>
+
+      <!-- HOW IT WORKS SECTION -->
+      <div class="section-title" style="margin-top: 3rem;">HOW IT WORKS</div>
+      <div class="how-it-works-grid">
+        <div class="how-card">
+          <div class="how-icon">🗺️</div>
+          <h3>1. Locate Emergencies</h3>
+          <p>Use the Live Map to pinpoint real-time disaster zones and instantly locate nearby shelters, hospitals, and rescue teams.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">🤖</div>
+          <h3>2. Verify Information</h3>
+          <p>Paste suspicious news or WhatsApp forwards into the AI Analyzer. Our Hugging Face AI will verify credibility and flag fake news.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">🛡️</div>
+          <h3>3. Stay Safe</h3>
+          <p>Access the Safety Hub to receive dynamic, situation-specific Do's and Don'ts to protect yourself during any emergency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LIVE MAP SECTION -->
+    <section id="live-map-section" class="content-section">
+      <div class="section-label">// Real-Time Tracking</div>
+      <div class="section-title">INCIDENT MAP</div>
+
+      <div class="disaster-grid">
+        <div class="disaster-card" onclick="selectDisaster(this, 'flood')">
+          <span class="disaster-icon">🌊</span>
+          <div class="disaster-name">Flood</div>
+          <div class="disaster-desc">Evacuation routes</div>
+        </div>
+        <div class="disaster-card" onclick="selectDisaster(this, 'earthquake')">
+          <span class="disaster-icon">🏚️</span>
+          <div class="disaster-name">Earthquake</div>
+          <div class="disaster-desc">Rescue coordination</div>
+        </div>
+        <div class="disaster-card" onclick="selectDisaster(this, 'fire')">
+          <span class="disaster-icon">🔥</span>
+          <div class="disaster-name">Fire</div>
+          <div class="disaster-desc">Wildfire/urban emergency</div>
+        </div>
+        <div class="disaster-card" onclick="selectDisaster(this, 'cyclone')">
+          <span class="disaster-icon">🌀</span>
+          <div class="disaster-name">Cyclone</div>
+          <div class="disaster-desc">Coastal evacuation</div>
+        </div>
+      </div>
+
+      <div class="alert-panel visible" id="alertPanel">
+        <div class="alert-header">
+          <div class="alert-dot pulse-dot"></div>
+          <div class="alert-title">LIVE INCIDENT MAP & RESOURCES</div>
+        </div>
+        
+        <div class="map-layout">
+          <!-- Responsive Map Container -->
+          <div class="map-container">
+            <div id="map">Map loading...</div>
+          </div>
+          
+          <!-- Mock Resources List -->
+          <div class="resource-list" id="resourceGrid">
+            <div style="color: var(--muted); font-size: 14px;">Select a disaster type to view nearby emergency resources.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. AI ANALYZER SECTION -->
+    <section id="ai-analyzer-section" class="content-section">
+      <div class="section-label">// AI Tool — Gemini Pro</div>
+      <div class="section-title">FAKE NEWS DETECTOR</div>
+
+      <div class="checker-box">
+        <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Paste any disaster-related news or WhatsApp forward to verify its credibility:</p>
+        <textarea class="checker-input" id="newsInput" placeholder="e.g. 'Dam has broken! Entire city will flood in 2 hours. Share immediately!!!'"></textarea>
+        <button class="btn-primary btn-block" onclick="checkNews()" id="checkNewsBtn">🤖 Analyze with AI</button>
+        
+        <!-- Skeleton Loader -->
+        <div id="newsSkeleton" class="skeleton-container" style="display: none;">
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-text"></div>
+          <div class="skeleton skeleton-text" style="width: 80%;"></div>
+        </div>
+
+        <div class="checker-result" id="checkerResult"></div>
+      </div>
+    </section>
+
+    <!-- 4. SAFETY HUB SECTION -->
+    <section id="safety-hub-section" class="content-section">
+      <div class="section-label">// Emergency Protocols</div>
+      <div class="section-title">SAFETY HUB</div>
+      
+      <!-- AI Safety Tips Panel -->
+      <div class="ai-safety-panel visible" id="safetyPanel" style="margin-bottom: 40px;">
+        <div class="alert-header">
+          <div class="alert-dot pulse-dot"></div>
+          <div class="alert-title">AI SAFETY RECOMMENDATIONS</div>
+        </div>
+        
+        <div style="color: var(--muted); font-size: 14px; margin-bottom: 20px;" id="safetyPlaceholder">
+          Select an incident from the Live Map to generate dynamic safety protocols via Gemini AI.
+        </div>
+
+        <!-- Skeleton Loader -->
+        <div id="safetySkeleton" class="skeleton-container" style="display: none;">
+          <div class="skeleton skeleton-title" style="margin-bottom: 20px;"></div>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="flex: 1;"><div class="skeleton skeleton-box"></div></div>
+            <div style="flex: 1;"><div class="skeleton skeleton-box"></div></div>
+          </div>
+        </div>
+
+        <div id="safetyContent" style="display: none;">
+          <div class="emergency-alert"><strong>🚨 Emergency:</strong> <span id="safetyEmergency"></span></div>
+          <div class="safety-grid">
+            <div class="safety-card do-card">
+              <h4>✅ DOs</h4>
+              <ul id="safetyDos"></ul>
+            </div>
+            <div class="safety-card dont-card">
+              <h4>❌ DONTs</h4>
+              <ul id="safetyDonts"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">// Emergency Helplines — India</div>
+      <div class="helpline-grid">
+        <div class="helpline-card">
+          <div class="helpline-num">112</div>
+          <div class="helpline-label">National Emergency</div>
+        </div>
+        <div class="helpline-card">
+          <div class="helpline-num">1078</div>
+          <div class="helpline-label">Flood Relief</div>
+        </div>
+        <div class="helpline-card">
+          <div class="helpline-num">101</div>
+          <div class="helpline-label">Fire Brigade</div>
+        </div>
+        <div class="helpline-card">
+          <div class="helpline-num">108</div>
+          <div class="helpline-label">Ambulance</div>
+        </div>
+        <div class="helpline-card">
+          <div class="helpline-num">1070</div>
+          <div class="helpline-label">NDMA Control Room</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+<!-- Google Maps API (Placeholder Key - REPLACE THIS LATER) -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWRFeAN_XQCDKym7bTNSOMqHXwYwNvxbo&callback=initMap" async defer></script>
+
+<!-- Custom Script -->
+<script src="script.js"></script>
+</body>
+</html>
