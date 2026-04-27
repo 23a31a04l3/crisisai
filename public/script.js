@@ -1,5 +1,5 @@
 // API URL (Update this if backend is deployed)
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = "https://crisisai-backend.onrender.com";
 
 // Map variables
 let map;
