@@ -1,106 +1,115 @@
+# 🚨 CrisisAI — Disaster Response Platform
 
-# CrisisAI — Disaster Response Platform 🚨
-
-**CrisisAI** is an AI-powered, real-time disaster response platform built for the **Google Solution Challenge**. It provides a centralized, professional dashboard for managing emergencies, predicting safety protocols using AI, verifying disaster news, and locating nearby emergency resources.
-
-![CrisisAI](https://img.shields.io/badge/Status-Competition_Ready-brightgreen) ![Tech](https://img.shields.io/badge/Tech-FastAPI%20|%20Firebase%20|%20Gemini%20AI-blue)
+**CrisisAI** is an AI-powered disaster response platform built for the **Google Solution Challenge 2026**.  
+It helps people **verify disaster-related information, access safety guidelines, and visualize incidents** through an intuitive, real-time dashboard.
 
 ---
 
-## 🚀 Key Features
+## 🌍 Problem Statement
 
-1. **Professional Dashboard Layout**: A fully responsive (mobile-first, tablet-optimized, desktop-ready) navigation system handling live statistics, active incidents, and alerts.
-2. **AI Fake News Detector (Gemini)**: Users can paste WhatsApp forwards or news snippets, and the Gemini API will classify them as `Safe/Credible` or `Fake/Unverified` with high confidence.
-3. **Live Incident Map (Google Maps)**: Real-time map tracking for active disasters with dynamic emergency resources (Shelters, Hospitals, Rescue Teams) overlaid on the map.
-4. **Dynamic AI Safety Hub**: Based on the selected disaster, the Gemini API generates real-time `DOs` and `DONTs`, providing actionable safety recommendations.
-5. **Real-Time UX**: Features pulsing live indicators, animated skeleton loaders during API calls, interactive data counters, and tooltips.
-
----
-
-## 🤖 Resilient AI Architecture
-
-To ensure the platform **never crashes** during live emergencies (especially if free-tier API limits are hit), CrisisAI implements a robust fallback system:
-
-If the backend detects a `429 RESOURCE_EXHAUSTED` error or downtime from the Hugging Face API, the platform automatically switches to a local algorithmic fallback.
-- The UI will continue to function perfectly.
-- **Why?** This ensures that users always get reliable, immediate safety protocols and news verification without being blocked by temporary AI rate limits.
+During natural disasters, **misinformation spreads rapidly**, especially through WhatsApp forwards and social media.  
+This leads to:
+- Panic among citizens  
+- Delayed emergency response  
+- Poor decision-making in critical situations  
 
 ---
 
-## 🛠 Local Setup Instructions
+## 💡 Our Solution
 
-### Prerequisites
-- Python 3.9+
-- Node.js (for Live Server) or VS Code Live Server extension
+CrisisAI provides a **centralized platform** that:
 
-### 1. Clone the Repository
-```bash
-git clone <your-repo-url>
-cd crisisai
-```
-
-### 2. Backend Setup (FastAPI)
-The backend requires Firebase Admin credentials and a Gemini API Key.
-```bash
-cd server
-python -m venv venv
-# Windows: venv\Scripts\activate | Mac/Linux: source venv/bin/activate
-pip install -r requirements.txt
-```
-Create a `.env` file in the `/server` folder:
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-FIREBASE_CREDENTIALS_PATH=./firebase-adminsdk.json
-```
-*(Make sure to download your Firebase service account JSON and place it in the server folder).*
-
-Start the backend:
-```bash
-uvicorn app:app --host 0.0.0.0 --port 8000 --reload
-```
-*The API will run at http://localhost:8000*
-
-### 3. Frontend Setup (HTML/JS)
-1. Open the `/public` folder.
-2. Open `index.html` and replace the Google Maps placeholder key with your actual Google Maps API Key:
-   ```html
-   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_ACTUAL_API_KEY&callback=initMap" async defer></script>
-   ```
-3. Use VS Code **Live Server** to run `index.html`. It will open the professional dashboard in your browser.
+- 🧠 **Detects fake disaster news** using AI  
+- 🛡️ **Generates safety recommendations** instantly  
+- 🗺️ **Visualizes disaster scenarios** on an interactive map  
+- 📊 **Displays insights** through a responsive dashboard  
 
 ---
 
-## 🌐 Deployment Guide
+## 🚀 Live Demo
 
-### Backend (Render)
-1. Push the repository to GitHub.
-2. On Render, create a new **Web Service**.
-3. Connect the repo and set the Root Directory to `server`.
-4. Build Command: `pip install -r requirements.txt`
-5. Start Command: `uvicorn app:app --host 0.0.0.0 --port 10000`
-6. Add your `.env` variables in the Render dashboard.
-
-### Frontend (Firebase Hosting)
-Once the backend is deployed, update the `API_BASE_URL` in `/public/script.js` to your Render URL.
-```bash
-npm install -g firebase-tools
-firebase login
-firebase init hosting
-# Select the /public folder
-firebase deploy
-```
+👉 https://crisisai-494517.web.app/#
 
 ---
 
-## ⚠️ Troubleshooting
+## 🎥 Demo Video
 
-- **Map is Gray/Not Loading:** Ensure your Google Maps API key has the "Maps JavaScript API" enabled and no strict referrer restrictions are blocking `localhost`.
-- **"Could not analyze message" Error:** Ensure the FastAPI backend is running on port 8000. Check the terminal for missing dependencies or invalid JSON paths.
-- **UI Elements Overflowing:** The UI is completely responsive. If the map breaks, ensure you haven't removed the `aspect-ratio` CSS constraints in `style.css`.
+👉 https://your-demo-video-link  
 
 ---
 
-**Built with ❤️ for the Google Solution Challenge 2026.**
+## ✨ Key Features
+
+### 🤖 AI Fake News Detector
+- Paste any disaster-related message  
+- AI classifies it as:  
+  - ✅ Safe / Credible  
+  - ⚠️ Fake / Unverified  
+
+---
+
+### 🛡️ AI Safety Hub
+- Select a disaster (Flood, Earthquake, etc.)  
+- Get:  
+  - ✅ DOs  
+  - ❌ DON’Ts  
+  - 🚨 Emergency actions  
+
+---
+
+### 🗺️ Live Incident Map
+- Interactive Google Map  
+- Displays disaster zones and nearby resources  
+- Helps users understand risk areas visually  
+
+---
+
+### 📊 Smart Dashboard
+- Clean and responsive UI  
+- Displays:  
+  - Active alerts  
+  - Fake news detection stats  
+  - Disaster insights  
+
+---
+
+## 🧠 AI Modes (Reliability Feature)
+
+### 🟢 Live Mode
+- Uses AI models (HuggingFace / API-based inference) to generate real-time responses  
+
+### 🟡 Simulation Mode (Fallback)
+- Automatically activates if API limits are exceeded  
+- Ensures uninterrupted user experience during demos  
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** FastAPI (Python)  
+- **Database:** Firebase Firestore  
+- **AI Integration:** HuggingFace Inference API  
+- **Maps:** Google Maps API  
+- **Deployment:**  
+  - Backend → Render  
+  - Frontend → Firebase Hosting  
+
+---
+
+## 🌍 Impact & SDGs
+
+CrisisAI contributes to:
+
+- **SDG 11:** Sustainable Cities & Communities  
+- **SDG 13:** Climate Action  
+
+It helps reduce panic, improve awareness, and support faster disaster response during emergencies.
+
+---
 
 
+## ❤️ Acknowledgement
+
+Built for the **Google Solution Challenge 2026** to create safer and smarter communities.
 
